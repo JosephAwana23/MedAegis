@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-10-20T21:01:23.808026",
+  "ephi_scrubber_test": {
+    "hipaa_safeguard": "45 CFR \u00a7 164.312(e)(1) - Transmission Security",
+    "risk_level": "CRITICAL (42 CFR Part 2 Consent Required)",
+    "identifiers_found": [
+      {
+        "type": "SSN",
+        "count": 1
+      },
+      {
+        "type": "MRN",
+        "count": 1
+      },
+      {
+        "type": "PHONE",
+        "count": 1
+      },
+      {
+        "type": "EMAIL",
+        "count": 1
+      },
+      {
+        "type": "DOB",
+        "count": 1
+      },
+      {
+        "type": "IPV4",
+        "count": 1
+      }
+    ],
+    "part2_sensitive_triggers": [
+      "buprenorphine",
+      "opioid detox"
+    ],
+    "original_length": 233,
+    "sanitized_output": "ER Triage Note: Patient John Doe ([REDACTED-DOB], SSN: [REDACTED-SSN], [REDACTED-MRN]) admitted for acute opioid detox and started on buprenorphine. Contact spouse at ([REDACTED-PHONE] or [REDACTED-EMAIL]. Workstation IP: [REDACTED-IPV4]",
+    "ai_triage_ready": true
+  },
+  "iomt_vlan_alerts": [
+    {
+      "severity": "CRITICAL",
+      "device": "Alaris Infusion Pump #14",
+      "src_ip": "10.10.20.45",
+      "dst_ip": "185.220.101.9",
+      "port": 443,
+      "reason": "IoMT device attempting outbound connection to public IP (Possible C2 / Exfiltration).",
+      "hipaa_mapping": "Network Segmentation & Technical Asset Control"
+    },
+    {
+      "severity": "HIGH",
+      "device": "GE Portable X-Ray",
+      "src_ip": "10.10.20.88",
+      "dst_ip": "10.10.20.92",
+      "port": 445,
+      "reason": "Lateral movement protocol detected on medical device: SMB (Ransomware Lateral Movement Risk)",
+      "hipaa_mapping": "45 CFR \u00a7 164.312(a)(1) - Access & Segmentation Control"
+    }
+  ],
+  "ehr_shift_incidents": [
+    {
+      "severity": "CRITICAL",
+      "user": "rn_m_sanchez",
+      "role": "ER Nurse",
+      "incident_type": "Ghost Shift ePHI Access",
+      "details": "rn_m_sanchez accessed patient charts while clocked OFF-SHIFT from ICU Terminal 4.",
+      "hipaa_mapping": "45 CFR \u00a7 164.312(a)(1) - Unauthorized Access Control"
+    },
+    {
+      "severity": "CRITICAL",
+      "user": "billing_k_chen",
+      "role": "Billing Specialist",
+      "incident_type": "Mass ePHI Chart Scraping",
+      "details": "billing_k_chen pulled 64 patient charts in 5 minutes (Threshold: 25).",
+      "hipaa_mapping": "45 CFR \u00a7 164.312(b) - Audit Controls & Bulk Exfiltration Defense"
+    },
+    {
+      "severity": "MEDIUM (Audit Required)",
+      "user": "dr_a_patel",
+      "role": "Trauma Surgeon",
+      "incident_type": "Break-Glass Emergency Override",
+      "details": "dr_a_patel triggered emergency override to view restricted chart. Mandatory compliance sign-off required within 24h.",
+      "hipaa_mapping": "45 CFR \u00a7 164.312(a)(2)(ii) - Emergency Access Procedure"
+    }
+  ],
+  "endpoint_safeguard_audit": {
+    "os_platform": "Windows 11",
+    "hipaa_hardening_score": 85,
+    "exposed_risky_ports": [
+      {
+        "port": 445,
+        "service": "SMB File Share",
+        "status": "OPEN (Risk)"
+      }
+    ],
+    "contingency_backup_audit": {
+      "hipaa_mandate": "72-Hour System & ePHI Restoration Readiness",
+      "last_snapshot_age_hours": 14.2,
+      "status": "COMPLIANT"
+    }
+  }
+}
